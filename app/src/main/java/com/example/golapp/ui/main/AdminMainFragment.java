@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.example.golapp.R;
 import com.example.golapp.databinding.FragmentAdminMainBinding;
 import com.example.golapp.databinding.FragmentLoginBinding;
+import com.example.golapp.ui.gol.GolIndexActivity;
 import com.example.golapp.ui.tutor.TutorIndexActivity;
 
 
@@ -38,6 +39,13 @@ public class AdminMainFragment extends Fragment {
         binding = FragmentAdminMainBinding.inflate(inflater, container, false);
         binding.cvGestionarTutores.setOnClickListener(view -> {
             startActivity(new Intent(requireContext(), TutorIndexActivity.class));
+        });
+
+        binding.cvGestionarGrupos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(requireContext(), GolIndexActivity.class));
+            }
         });
         return binding.getRoot();
     }

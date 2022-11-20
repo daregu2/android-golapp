@@ -53,11 +53,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         binding.navView.setNavigationItemSelectedListener(this);
         dialog = new KAlertDialog(this, KAlertDialog.PROGRESS_TYPE);
-        // ACCIONES DE LOS CARDVIEWS
-//        binding.cvMainTutor.setOnClickListener(view -> {
-//            Intent intent = new Intent(MainActivity.this, TutorIndexActivity.class);
-//            startActivity(intent);
-//        });
+
         setInitialDataFromServer();
     }
 
