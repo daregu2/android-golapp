@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">GolApp</string>
+    <string name="username">Usuario</string>
+    <string name="password">Contraseña</string>
+    <string name="log_in">Iniciar Sesión</string>
+    <string name="register_question">No tienes una cuenta? Registrate</string>
+    <string name="loading">Cargando…</string>
+
+    <!--    NAV-->
+    <string name="nav_open">Abrir Nav</string>
+    <string name="nav_close">Cerrar Nav</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
