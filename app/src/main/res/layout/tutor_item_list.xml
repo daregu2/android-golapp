@@ -56,14 +56,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Escuela"
-                    android:textSize="15sp" />
+                    android:textSize="11sp" />
 
                 <TextView
                     android:id="@+id/txtTutorCycle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Ciclo"
-                    android:textSize="15sp" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
             <LinearLayout
