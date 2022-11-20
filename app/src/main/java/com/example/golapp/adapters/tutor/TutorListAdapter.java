@@ -64,8 +64,9 @@ public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.View
     public void setItems(List<Tutor> tutorList) {
         this.tutorList = tutorList;
     }
+
     public void deleteItem(int position) {
-        if (tutorList != null && this.getItemCount() >0){
+        if (tutorList != null && this.getItemCount() > 0) {
             tutorList.remove(position);
         }
         notifyItemRemoved(position);
@@ -86,6 +87,7 @@ public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.View
             binding.txtTutorCycle.setText(tutor.getCycle());
             binding.btnEdit.setOnClickListener(view -> {
                 Intent intent = new Intent(view.getContext(), TutorEditActivity.class);
+                intent.putExtra("person", tutor);
                 view.getContext().startActivity(new Intent(intent));
             });
 
