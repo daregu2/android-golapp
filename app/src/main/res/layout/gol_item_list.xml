@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardGol"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/imgGol"
+            android:contentDescription="@string/app_name"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:paddingTop="15dp"
+            android:src="@drawable/img_placeholder"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp">
+
+            <!--            <ImageView-->
+            <!--                android:id="@+id/imgGol"-->
+            <!--                android:layout_width="70dp"-->
+            <!--                android:layout_height="70dp"-->
+            <!--                android:layout_alignParentStart="true"-->
+            <!--                android:layout_centerVertical="true"-->
+            <!--                android:layout_gravity="center"-->
+            <!--                android:contentDescription="@string/app_name"-->
+            <!--                android:paddingLeft="14dp"-->
+            <!--                android:paddingRight="14dp"-->
+            <!--                android:src="@drawable/ic_menu" />-->
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtGolName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:lines="1"
+                    android:text="@string/app_name"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtGolChant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Canto"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/txtGolVerse"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Versiculo"
+                    android:lines="1"
+                    android:textSize="11sp" />
+                <TextView
+                    android:id="@+id/txtGolMotto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lines="1"
+                    android:text="Lema"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:id="@+id/btnEdit"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+
+                    android:layout_marginEnd="6dp"
+                    app:srcCompat="@drawable/edit" />
+
+                <Space
+                    android:layout_width="5dp"
+                    android:layout_height="3dp" />
+
+                <ImageView
+                    android:id="@+id/btnDelete"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/delete" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
