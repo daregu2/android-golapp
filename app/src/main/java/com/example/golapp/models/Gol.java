@@ -1,6 +1,7 @@
 package com.example.golapp.models;
 
 public class Gol {
+    private Integer id;
     private String name;
     private String motto;
     private String chant;
@@ -8,6 +9,10 @@ public class Gol {
 
     public Gol() {
 
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public String getName() {

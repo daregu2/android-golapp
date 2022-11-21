@@ -64,39 +64,39 @@
                 android:src="@drawable/img_placeholder"
                 tools:srcCompat="@drawable/img_placeholder" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txtSpinSchool"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:errorEnabled="false"
-                app:errorIconDrawable="@drawable/ic_error">
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:id="@+id/txtSpinSchool"-->
+<!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:errorEnabled="false"-->
+<!--                app:errorIconDrawable="@drawable/ic_error">-->
 
-                <AutoCompleteTextView
-                    android:id="@+id/spinSchool"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:hint="Escuela"
-                    android:inputType="none" />
-            </com.google.android.material.textfield.TextInputLayout>
+<!--                <AutoCompleteTextView-->
+<!--                    android:id="@+id/spinSchool"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:hint="Escuela"-->
+<!--                    android:inputType="none" />-->
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txtSpinCycle"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:errorEnabled="false"
-                app:errorIconDrawable="@drawable/ic_error">
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:id="@+id/txtSpinCycle"-->
+<!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:errorEnabled="false"-->
+<!--                app:errorIconDrawable="@drawable/ic_error">-->
 
-                <AutoCompleteTextView
-                    android:id="@+id/spinCycle"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:hint="Ciclo"
-                    android:inputType="none" />
-            </com.google.android.material.textfield.TextInputLayout>
+<!--                <AutoCompleteTextView-->
+<!--                    android:id="@+id/spinCycle"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:hint="Ciclo"-->
+<!--                    android:inputType="none" />-->
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/txtLayoutNombre"

@@ -26,7 +26,7 @@ public interface GolService {
 //    @PUT("/api/gols/{id}")
 //    Call<BaseResponse<String>> update(@Path("id") int id, @Body TutorStoreRequest request);
 //
-//    @DELETE("/api/gols/{id}")
-//    Call<BaseResponse<String>> delete(@Path("id") int id);
+    @DELETE("/api/gols/{id}")
+    Call<BaseResponse<String>> delete(@Path("id") int id);
 
 }

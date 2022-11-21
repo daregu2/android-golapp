@@ -115,7 +115,33 @@ public class GolListAdapter extends RecyclerView.Adapter<GolListAdapter.ViewHold
                                 dialog.changeDialog(new LottieAlertDialog.Builder(view.getContext(), DialogTypes.TYPE_LOADING)
                                         .setTitle("En proceso")
                                 );
-                                // TODO: Falta el delete deGol service
+                                golService.delete(gol.getId()).enqueue(new Callback<BaseResponse<String>>() {
+                                    @Override
+                                    public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                                        if (response.isSuccessful()) {
+                                            Toasty.success(view.getContext(), "Tutor eliminado correctamente!").show();
+                                            deleteItem(getAdapterPosition());
+
+                                        } else {
+                                            Converter<ResponseBody, BaseResponse<String>> converter = RetrofitInstance.getRetrofitInstance().responseBodyConverter(BaseResponse.class, new Annotation[0]);
+                                            try {
+                                                BaseResponse<String> error = converter.convert(Objects.requireNonNull(response.errorBody()));
+                                                assert error != null;
+                                                Toasty.error(view.getContext(), error.getMessage()).show();
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                        dialog.dismiss();
+                                    }
+
+
+                                    @Override
+                                    public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+                                        dialog.dismiss();
+                                    }
+                                });
+
 
 
                             })
