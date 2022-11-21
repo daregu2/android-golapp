@@ -14,6 +14,7 @@ import com.example.golapp.models.Cycle;
 import com.example.golapp.responses.BaseResponse;
 import com.example.golapp.services.GolService;
 import com.example.golapp.ui.gol.GolCreateActivity;
+import com.example.golapp.ui.gol.GolEditActivity;
 import com.labters.lottiealertdialoglibrary.DialogTypes;
 import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
 
@@ -124,6 +125,11 @@ public class CycleListAdapter extends RecyclerView.Adapter<CycleListAdapter.View
                         .build();
                 dialog.setCancelable(true);
                 dialog.show();
+            });
+            binding.btnEdit.setOnClickListener(view -> {
+                Intent intent = new Intent(view.getContext(), GolEditActivity.class);
+                intent.putExtra("gol", cycle.getGol());
+                view.getContext().startActivity(new Intent(intent));
             });
             if (cycle.getGol() == null) {
                 binding.btnAdd.setVisibility(View.VISIBLE);

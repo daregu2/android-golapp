@@ -1,7 +1,5 @@
 package com.example.golapp.services;
 
-import com.example.golapp.requests.gol.GolRequest;
-import com.example.golapp.requests.tutor.TutorStoreRequest;
 import com.example.golapp.responses.BaseResponse;
 import com.example.golapp.responses.CollectionResponse;
 import com.example.golapp.responses.GolResponse;
@@ -22,10 +20,10 @@ public interface GolService {
 
     @POST("/api/gols")
     Call<BaseResponse<String>> store(@Body RequestBody body);
-//
-//    @PUT("/api/gols/{id}")
-//    Call<BaseResponse<String>> update(@Path("id") int id, @Body TutorStoreRequest request);
-//
+
+    @POST("/api/gols/{id}")
+    Call<BaseResponse<String>> update(@Path("id") Integer id, @Body RequestBody body);
+
     @DELETE("/api/gols/{id}")
     Call<BaseResponse<String>> delete(@Path("id") int id);
 

@@ -1,11 +1,14 @@
 package com.example.golapp.models;
 
-public class Gol {
+import java.io.Serializable;
+
+public class Gol implements Serializable {
     private Integer id;
     private String name;
     private String motto;
     private String chant;
     private String verse;
+    private String photo;
 
     public Gol() {
 
@@ -29,5 +32,9 @@ public class Gol {
 
     public String getVerse() {
         return verse;
+    }
+
+    public String getPhoto() {
+        return photo;
     }
 }

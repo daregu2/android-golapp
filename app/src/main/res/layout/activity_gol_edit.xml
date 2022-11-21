@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.gol.GolCreateActivity">
+    tools:context=".ui.gol.GolEditActivity">
 
     <LinearLayout
-        android:id="@+id/linearLayoutGolCreate"
+        android:id="@+id/linearLayoutGolEdit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Registrar Gol"
+            android:text="Editar informaicon del Gol"
             android:textColor="@color/black"
             android:textSize="22sp" />
 
@@ -41,7 +41,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutGolCreate">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutGolEdit">
 
         <LinearLayout
             android:layout_width="match_parent"
