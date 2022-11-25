@@ -24,6 +24,7 @@ import com.example.golapp.models.UserDetail;
 import com.example.golapp.responses.BaseResponse;
 import com.example.golapp.services.AuthService;
 import com.example.golapp.ui.auth.AuthActivity;
+import com.example.golapp.ui.main.TutorMainFragment;
 import com.example.golapp.utils.TokenManager;
 import com.google.android.material.navigation.NavigationView;
 
@@ -75,6 +76,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             binding.cardNextEvent.setVisibility(View.GONE);
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.frameContainer, new AdminMainFragment());
+            ft.commit();
+        }
+        if (userDetail.getRoles().contains("Tutor")) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.frameContainer, new TutorMainFragment());
             ft.commit();
         }
     }
