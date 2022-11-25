@@ -14,6 +14,7 @@ import com.example.golapp.R;
 import com.example.golapp.databinding.FragmentAdminMainBinding;
 import com.example.golapp.databinding.FragmentLoginBinding;
 import com.example.golapp.ui.gol.GolIndexActivity;
+import com.example.golapp.ui.topic.TopicIndexActivity;
 import com.example.golapp.ui.tutor.TutorIndexActivity;
 
 
@@ -37,16 +38,9 @@ public class AdminMainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentAdminMainBinding.inflate(inflater, container, false);
-        binding.cvGestionarTutores.setOnClickListener(view -> {
-            startActivity(new Intent(requireContext(), TutorIndexActivity.class));
-        });
-
-        binding.cvGestionarGrupos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(requireContext(), GolIndexActivity.class));
-            }
-        });
+        binding.cvGestionarTutores.setOnClickListener(view -> startActivity(new Intent(requireContext(), TutorIndexActivity.class)));
+        binding.cvGestionarGrupos.setOnClickListener(view -> startActivity(new Intent(requireContext(), GolIndexActivity.class)));
+        binding.cvGestionarTemas.setOnClickListener(view -> startActivity(new Intent(requireContext(), TopicIndexActivity.class)));
         return binding.getRoot();
     }
 
