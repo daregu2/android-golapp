@@ -80,12 +80,6 @@ public class LoadingFragment extends Fragment {
         authService.fetchProfile().enqueue(new Callback<BaseResponse<UserDetail>>() {
             @Override
             public void onResponse(@NonNull Call<BaseResponse<UserDetail>> call, @NonNull Response<BaseResponse<UserDetail>> response) {
-
-                if (response.code()==403 || response.code()==401){
-                    redirectLogin();
-                    return;
-                }
-
                 if (response.isSuccessful() && response.body()!=null) {
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     intent.putExtra("user", response.body().getResult());
@@ -93,14 +87,14 @@ public class LoadingFragment extends Fragment {
                     requireActivity().finish();
 
                 } else {
-                    tokenManager.deleteToken();
                     Converter<ResponseBody, BaseResponse<String>> converter = RetrofitInstance.getRetrofitInstance().responseBodyConverter(BaseResponse.class, new Annotation[0]);
                     try {
                         BaseResponse<String> error = converter.convert(Objects.requireNonNull(response.errorBody()));
                         assert error != null;
                         System.out.println(response.raw());
                         Toasty.error(requireContext(), error.getMessage()).show();
-                        requireActivity().finishAndRemoveTask();
+//                        requireActivity().finishAndRemoveTask();
+                        redirectLogin();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

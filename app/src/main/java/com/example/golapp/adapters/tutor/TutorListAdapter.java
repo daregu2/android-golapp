@@ -83,8 +83,8 @@ public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.View
 
         public void bindView(Tutor tutor) {
             binding.txtTutorNames.setText(tutor.getNames());
-            binding.txtTutorSchool.setText(tutor.getSchool());
-            binding.txtTutorCycle.setText(tutor.getCycle());
+            binding.txtTutorSchool.setText(tutor.getCycle().getSchool().getName());
+            binding.txtTutorCycle.setText(tutor.getCycle().getName());
             binding.btnEdit.setOnClickListener(view -> {
                 Intent intent = new Intent(view.getContext(), TutorEditActivity.class);
                 intent.putExtra("person", tutor);

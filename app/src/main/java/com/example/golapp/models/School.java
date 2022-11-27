@@ -1,8 +1,9 @@
 package com.example.golapp.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class School {
+public class School implements Serializable {
     private Integer id;
     private String name;
     private ArrayList<Cycle> cycles;

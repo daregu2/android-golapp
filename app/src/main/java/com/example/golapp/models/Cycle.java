@@ -1,10 +1,14 @@
 package com.example.golapp.models;
 
-public class Cycle {
+import java.io.Serializable;
+
+public class Cycle implements Serializable {
     private Integer id;
     private String name;
     private Integer school_id;
+    private Boolean is_active;
     private Gol gol;
+    private School school;
 
     public Integer getId() {
         return id;
@@ -20,6 +24,14 @@ public class Cycle {
 
     public Cycle() {
 
+    }
+
+    public Boolean getIs_active() {
+        return is_active;
+    }
+
+    public School getSchool() {
+        return school;
     }
 
     public Gol getGol() {

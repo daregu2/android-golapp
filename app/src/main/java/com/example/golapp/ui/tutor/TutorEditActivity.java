@@ -149,8 +149,8 @@ public class TutorEditActivity extends AppCompatActivity {
     public void setupEditablePerson() {
         Intent i = getIntent();
         tutor =  (Tutor) i.getSerializableExtra("person");
-        binding.spinSchool.setText(tutor.getSchool(), false);
-        binding.spinCycle.setText(tutor.getCycle(), false);
+        binding.spinSchool.setText(tutor.getCycle().getSchool().getName(), false);
+        binding.spinCycle.setText(tutor.getCycle().getName(), false);
         binding.txtLayoutNombres.getEditText().setText(tutor.getNames());
         binding.txtLayoutApellidos.getEditText().setText(tutor.getLastNames());
         binding.txtLayoutCodigo.getEditText().setText(String.valueOf(tutor.getCode()));

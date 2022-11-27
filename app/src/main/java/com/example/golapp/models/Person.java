@@ -9,6 +9,7 @@ public class Person implements Serializable {
     private Integer code;
     private String email;
     private Integer phone;
+    private Cycle cycle;
 
     public Integer getId() {
         return id;
@@ -32,5 +33,9 @@ public class Person implements Serializable {
 
     public Integer getPhone() {
         return phone;
+    }
+
+    public Cycle getCycle() {
+        return cycle;
     }
 }
