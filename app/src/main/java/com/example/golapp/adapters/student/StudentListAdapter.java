@@ -1,6 +1,5 @@
 package com.example.golapp.adapters.student;
 
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +13,7 @@ import com.example.golapp.databinding.StudentItemListBinding;
 import com.example.golapp.models.Student;
 import com.example.golapp.responses.BaseResponse;
 import com.example.golapp.services.StudentService;
+import com.example.golapp.ui.student.StudentEditActivity;
 import com.labters.lottiealertdialoglibrary.DialogTypes;
 import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
 
@@ -83,9 +83,9 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
             binding.txtStudentSchool.setText(tutor.getCycle().getSchool().getName());
             binding.txtStudentCycle.setText(tutor.getCycle().getName());
             binding.btnEdit.setOnClickListener(view -> {
-//                Intent intent = new Intent(view.getContext(), StudentEditActivity.class);
-//                intent.putExtra("person", tutor);
-//                view.getContext().startActivity(new Intent(intent));
+                Intent intent = new Intent(view.getContext(), StudentEditActivity.class);
+                intent.putExtra("person", tutor);
+                view.getContext().startActivity(new Intent(intent));
             });
 
             binding.btnDelete.setOnClickListener(new View.OnClickListener() {
@@ -102,8 +102,8 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
                                 studentService.delete(tutor.getId()).enqueue(new Callback<BaseResponse<String>>() {
                                     @Override
                                     public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
-                                        if (response.isSuccessful()) {
-                                            Toasty.success(view.getContext(), "Student eliminado correctamente!").show();
+                                        if (response.isSuccessful() && response.body() != null) {
+                                            Toasty.success(view.getContext(), response.body().getMessage()).show();
                                             deleteItem(getAdapterPosition());
 
                                         } else {
