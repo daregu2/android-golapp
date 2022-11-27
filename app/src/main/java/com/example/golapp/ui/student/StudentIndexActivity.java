@@ -40,9 +40,7 @@ public class StudentIndexActivity extends AppCompatActivity {
         binding = ActivityStudentIndexBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.btnAdd.setOnClickListener(view -> {
-//            startActivity(new Intent(StudentIndexActivity.this, StudentCreateActivity.class));
-        });
+        binding.btnAdd.setOnClickListener(view -> startActivity(new Intent(StudentIndexActivity.this, StudentCreateActivity.class)));
         studentListAdapter = new StudentListAdapter(studentList);
 //        binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));

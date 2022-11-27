@@ -15,9 +15,6 @@ import com.example.golapp.models.UserDetail;
 import com.example.golapp.ui.gol.GolEditActivity;
 import com.example.golapp.ui.student.StudentIndexActivity;
 
-import es.dmoral.toasty.Toasty;
-
-
 public class TutorMainFragment extends Fragment {
     FragmentTutorMainBinding binding;
 
@@ -38,7 +35,6 @@ public class TutorMainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         UserDetail user = (UserDetail) getArguments().getSerializable("user");
-        Toasty.success(requireContext(),user.getPerson().getCycle().getGol().getName()).show();
         binding = FragmentTutorMainBinding.inflate(inflater, container, false);
 //        binding.cv.setOnClickListener(view -> startActivity(new Intent(requireContext(), TutorIndexActivity.class)));
         binding.cvGestionarGol.setOnClickListener(view -> {
