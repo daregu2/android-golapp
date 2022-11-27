@@ -62,7 +62,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void setInitialDataFromServer() {
         Intent i = getIntent();
         UserDetail userDetail = (UserDetail) i.getSerializableExtra("user");
-
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("user", userDetail);
         ImageView imageView = (ImageView) binding.navView.getHeaderView(0).findViewById(R.id.headerImg);
         TextView headerNameText = binding.navView.getHeaderView(0).findViewById(R.id.headerNameTxt);
         headerNameText.setText(String.format("%s %s", userDetail.getPerson().getNames(), userDetail.getPerson().getLastNames()));
@@ -80,8 +81,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ft.commit();
         }
         if (userDetail.getRoles().contains("Tutor")) {
+            TutorMainFragment tutorMainFragment =  new TutorMainFragment();
+            tutorMainFragment.setArguments(bundle);
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.frameContainer, new TutorMainFragment());
+            ft.replace(R.id.frameContainer,tutorMainFragment);
             ft.commit();
         }
     }
