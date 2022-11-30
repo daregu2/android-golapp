@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.golapp.databinding.FragmentTutorMainBinding;
 import com.example.golapp.models.UserDetail;
+import com.example.golapp.ui.event.EventIndexActivity;
 import com.example.golapp.ui.gol.GolEditActivity;
 import com.example.golapp.ui.student.StudentIndexActivity;
 
@@ -43,7 +44,7 @@ public class TutorMainFragment extends Fragment {
             startActivity(intent);
         });
         binding.cvGestionarAlumnos.setOnClickListener(view -> startActivity(new Intent(requireContext(), StudentIndexActivity.class)));
-//        binding.cvGestionarTemas.setOnClickListener(view -> startActivity(new Intent(requireContext(), TopicIndexActivity.class)));
+        binding.cvGestionarEventos.setOnClickListener(view -> startActivity(new Intent(requireContext(), EventIndexActivity.class)));
         return binding.getRoot();
     }
 
