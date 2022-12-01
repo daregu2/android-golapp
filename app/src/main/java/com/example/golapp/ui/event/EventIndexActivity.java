@@ -3,6 +3,7 @@ package com.example.golapp.ui.event;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -13,6 +14,9 @@ import com.example.golapp.models.Event;
 import com.example.golapp.responses.BaseResponse;
 import com.example.golapp.responses.CollectionResponse;
 import com.example.golapp.services.EventService;
+import com.example.golapp.ui.topic.TopicIndexActivity;
+import com.labters.lottiealertdialoglibrary.DialogTypes;
+import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -43,6 +47,8 @@ public class EventIndexActivity extends AppCompatActivity {
 //        binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(eventListAdapter);
+
+        binding.btnAdd.setOnClickListener(view -> startActivity(new Intent(this, EventCreateActivity.class)));
 
     }
 

@@ -7,6 +7,7 @@ import com.example.golapp.requests.tutor.TutorStoreRequest;
 import com.example.golapp.responses.BaseResponse;
 import com.example.golapp.responses.CollectionResponse;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -21,7 +22,7 @@ public interface EventService {
     Call<BaseResponse<CollectionResponse<Event>>> index();
 
     @POST("/api/events")
-    Call<BaseResponse<String>> store(@Body EventRequest request);
+    Call<BaseResponse<String>> store(@Body RequestBody body);
 
     @PUT("/api/events/{id}")
     Call<BaseResponse<String>> update(@Path("id") int id, @Body EventRequest request);
