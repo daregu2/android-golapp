@@ -62,14 +62,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:id="@+id/btnAdd"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginEnd="6dp"
-                    android:contentDescription="@string/app_name"
-                    app:srcCompat="@drawable/ic_group_add" />
-
                 <Space
                     android:layout_width="5dp"
                     android:layout_height="3dp" />

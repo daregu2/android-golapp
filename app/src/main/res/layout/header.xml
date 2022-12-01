@@ -7,12 +7,13 @@
     android:orientation="vertical"
     android:padding="20dp">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/headerImg"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_profile" />
+        android:src="@drawable/upeu_logo"
+        android:layout_marginBottom="15dp"/>
 
     <TextView
         android:id="@+id/headerGolTxt"

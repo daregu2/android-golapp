@@ -58,7 +58,8 @@ public class EventCreateActivity extends AppCompatActivity {
                     new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                            binding.txtLayoutStart.getEditText().setText(sHour + ":" + sMinute);
+                            binding.txtLayoutStart.getEditText().setText(String.format("%02d:%02d", sHour, sMinute));
+
                         }
                     }, hour, minutes, true);
             picker.show();
@@ -72,7 +73,7 @@ public class EventCreateActivity extends AppCompatActivity {
                     new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
-                            binding.txtLayoutEnd.getEditText().setText(sHour + ":" + sMinute);
+                            binding.txtLayoutEnd.getEditText().setText(String.format("%02d:%02d", sHour, sMinute));
                         }
                     }, hour, minutes, true);
             picker.show();

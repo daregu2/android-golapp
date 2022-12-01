@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.golapp.adapters.event.EventListAdapter;
+import com.example.golapp.adapters.topic.OnDeleteClick;
 import com.example.golapp.api.RetrofitInstance;
 import com.example.golapp.databinding.ActivityEventIndexBinding;
 import com.example.golapp.models.Event;
@@ -31,11 +32,13 @@ import retrofit2.Callback;
 import retrofit2.Converter;
 import retrofit2.Response;
 
-public class EventIndexActivity extends AppCompatActivity {
+public class EventIndexActivity extends AppCompatActivity implements OnDeleteClick {
     ActivityEventIndexBinding binding;
     EventService eventService = RetrofitInstance.getRetrofitInstance().create(EventService.class);
     EventListAdapter eventListAdapter;
     private final List<Event> eventList = new ArrayList<>();
+    LottieAlertDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +46,7 @@ public class EventIndexActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 //        binding.btnAdd.setOnClickListener(view -> startActivity(new Intent(EventIndexActivity.this, EventCreateActivity.class)));
-        eventListAdapter = new EventListAdapter(eventList);
+        eventListAdapter = new EventListAdapter(eventList,this);
 //        binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(eventListAdapter);
@@ -96,5 +99,48 @@ public class EventIndexActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onDeleteTopicClick(Integer id) {
+        dialog = new LottieAlertDialog.Builder(this, DialogTypes.TYPE_WARNING)
+                .setTitle("¿Está seguro de eliminar este registro?")
+                .setDescription("No podra deshacer los cambios luego...")
+                .setPositiveText("Confirmar")
+                .setPositiveListener(lottieAlertDialog -> {
+                    dialog.changeDialog(new LottieAlertDialog.Builder(this, DialogTypes.TYPE_LOADING)
+                            .setTitle("En proceso")
+                    );
+                    eventService.delete(id).enqueue(new Callback<BaseResponse<String>>() {
+                        @Override
+                        public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                            if (response.isSuccessful() && response.body() !=null) {
+                                Toasty.success(EventIndexActivity.this, response.body().getMessage()).show();
+                                initEventsList();
+
+                            } else {
+                                Converter<ResponseBody, BaseResponse<String>> converter = RetrofitInstance.getRetrofitInstance().responseBodyConverter(BaseResponse.class, new Annotation[0]);
+                                try {
+                                    BaseResponse<String> error = converter.convert(Objects.requireNonNull(response.errorBody()));
+                                    assert error != null;
+                                    Toasty.error(EventIndexActivity.this, error.getMessage()).show();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            dialog.dismiss();
+                        }
+
+                        @Override
+                        public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+                            dialog.dismiss();
+                        }
+                    });
+
+
+                })
+                .build();
+        dialog.setCancelable(true);
+        dialog.show();
     }
 }

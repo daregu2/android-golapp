@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.golapp.adapters.topic.OnDeleteClick;
 import com.example.golapp.databinding.EventItemListBinding;
 import com.example.golapp.models.Event;
 import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
@@ -17,10 +18,12 @@ import java.util.List;
 public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.ViewHolder> {
 
     private List<Event> itemList;
+    OnDeleteClick onDeleteClick;
     LottieAlertDialog dialog;
 
-    public EventListAdapter(List<Event> itemList) {
+    public EventListAdapter(List<Event> itemList, OnDeleteClick onDeleteClick) {
         this.itemList = itemList;
+        this.onDeleteClick = onDeleteClick;
     }
 
     @NonNull
@@ -68,6 +71,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
 //                intent.putExtra("person", tutor);
 //                view.getContext().startActivity(new Intent(intent));
             });
+            binding.btnDelete.setOnClickListener(view -> onDeleteClick.onDeleteTopicClick(event.getId()));
         }
     }
 }

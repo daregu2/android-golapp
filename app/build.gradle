@@ -84,4 +84,5 @@ dependencies {
 
     implementation 'com.vivekkaushik.datepicker:datePickerTimeline:0.0.4'
     implementation 'com.github.migellal:dayview:0.0.1'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 }

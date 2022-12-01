@@ -82,13 +82,15 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:startIconDrawable="@drawable/ic_time"
                 app:endIconMode="custom"
-                app:errorEnabled="false">
+                app:errorEnabled="false"
+                app:startIconDrawable="@drawable/ic_time">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:focusable="false"
                     android:hint="Hora de Inicio"
                     android:inputType="time" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -99,9 +101,9 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:startIconDrawable="@drawable/ic_time"
                 app:endIconMode="custom"
-                app:errorEnabled="false">
+                app:errorEnabled="false"
+                app:startIconDrawable="@drawable/ic_time">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
