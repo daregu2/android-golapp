@@ -24,8 +24,8 @@ public interface EventService {
     @POST("/api/events")
     Call<BaseResponse<String>> store(@Body RequestBody body);
 
-    @PUT("/api/events/{id}")
-    Call<BaseResponse<String>> update(@Path("id") int id, @Body EventRequest request);
+    @POST("/api/events/{id}")
+    Call<BaseResponse<String>> update(@Path("id") int id, @Body RequestBody body);
 
     @DELETE("/api/events/{id}")
     Call<BaseResponse<String>> delete(@Path("id") int id);

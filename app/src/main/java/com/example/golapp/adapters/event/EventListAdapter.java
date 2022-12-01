@@ -1,6 +1,7 @@
 package com.example.golapp.adapters.event;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.golapp.adapters.topic.OnDeleteClick;
 import com.example.golapp.databinding.EventItemListBinding;
 import com.example.golapp.models.Event;
+import com.example.golapp.ui.event.EventEditActivity;
 import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
 
 import java.util.List;
@@ -67,9 +69,9 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         public void bindView(Event event) {
             binding.txtDate.setText(event.getName());
             binding.btnEdit.setOnClickListener(view -> {
-//                Intent intent = new Intent(view.getContext(), GolEditActivity.class);
-//                intent.putExtra("person", tutor);
-//                view.getContext().startActivity(new Intent(intent));
+                Intent intent = new Intent(view.getContext(), EventEditActivity.class);
+                intent.putExtra("event", event);
+                view.getContext().startActivity(new Intent(intent));
             });
             binding.btnDelete.setOnClickListener(view -> onDeleteClick.onDeleteTopicClick(event.getId()));
         }
