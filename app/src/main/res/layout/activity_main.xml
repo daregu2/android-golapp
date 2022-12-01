@@ -5,17 +5,16 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity"
     android:fitsSystemWindows="true"
-    >
+    tools:context=".ui.MainActivity">
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_gravity="start"
         app:headerLayout="@layout/header"
-        app:menu="@menu/main_menu"
-        android:layout_gravity="start"/>
+        app:menu="@menu/main_menu" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -34,13 +33,82 @@
                 android:layout_height="100dp"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintStart_toStartOf="@+id/guideline1"
-                app:layout_constraintTop_toTopOf="@+id/guideline3" >
+                app:layout_constraintTop_toTopOf="@+id/guideline3">
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Proximo evento" />
+                <!--                <TextView-->
+                <!--                    android:id="@+id/textView2"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:text="Proximo evento" />-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/emptyEvent"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="239dp"
+                        android:layout_height="42dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginTop="16dp"
+                        android:gravity="center"
+                        android:lines="2"
+                        android:text="Aún no tienes un evento programado para este viernes!"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/eventCard"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/txtEventName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Nombre del evento"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.071"
+                        app:layout_constraintStart_toEndOf="@+id/dayView"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txtEventStart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="Hora de inicio"
+                        app:layout_constraintStart_toStartOf="@+id/txtEventName"
+                        app:layout_constraintTop_toBottomOf="@+id/txtEventName" />
+                    <TextView
+                        android:id="@+id/txtEventEnd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="Hora de fin"
+                        app:layout_constraintStart_toStartOf="@+id/txtEventStart"
+                        app:layout_constraintTop_toBottomOf="@+id/txtEventStart" />
+
+                    <pl.digitalzombielab.dayview.DayView
+                        android:id="@+id/dayView"
+                        android:layout_width="90dp"
+                        android:layout_height="wrap_content"
+                        app:barColor="@color/primaryColor"
+                        app:borderColor="@color/primaryColor"
+                        app:cardBackgroundColor="@android:color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:textColor="@android:color/black" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
             <FrameLayout

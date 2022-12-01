@@ -7,6 +7,7 @@ public class UserDetail implements Serializable {
     private Person person;
     private ArrayList<String> roles;
     private String avatar;
+    private Event event;
 
     public Person getPerson() {
         return person;
@@ -18,5 +19,9 @@ public class UserDetail implements Serializable {
 
     public ArrayList<String> getRoles() {
         return roles;
+    }
+
+    public Event getEvent() {
+        return event;
     }
 }

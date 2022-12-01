@@ -29,6 +29,11 @@ import com.example.golapp.ui.main.TutorMainFragment;
 import com.example.golapp.utils.TokenManager;
 import com.google.android.material.navigation.NavigationView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -81,11 +86,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ft.commit();
         }
         if (userDetail.getRoles().contains("Tutor")) {
-            TutorMainFragment tutorMainFragment =  new TutorMainFragment();
+            TutorMainFragment tutorMainFragment = new TutorMainFragment();
             tutorMainFragment.setArguments(bundle);
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.frameContainer,tutorMainFragment);
+            ft.replace(R.id.frameContainer, tutorMainFragment);
             ft.commit();
+        }
+
+        if (userDetail.getEvent() != null) {
+            binding.eventCard.setVisibility(View.VISIBLE);
+            binding.txtEventName.setText(userDetail.getEvent().getName());
+            binding.txtEventStart.setText(userDetail.getEvent().getStart_at());
+            binding.txtEventEnd.setText(userDetail.getEvent().getEnd_at());
+            try {
+                Date date1 = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH).parse(userDetail.getEvent().getProgrammed_at());
+                binding.dayView.setDate(date1);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }else{
+            binding.emptyEvent.setVisibility(View.VISIBLE);
         }
     }
 
