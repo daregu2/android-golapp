@@ -85,7 +85,7 @@ public class WeekListAdapter extends RecyclerView.Adapter<WeekListAdapter.ViewHo
         }
 
         public void bindView(Week week) {
-            binding.txtWeekName.setText(String.valueOf("Sesión "+ (getAdapterPosition() + 1)));
+            binding.txtWeekName.setText(String.valueOf("Sesión "+ (getItemCount()-getAdapterPosition())));
             binding.txtDate.setText(week.getEvent_date());
 
             binding.expandableLayout.setVisibility(week.isExpandable() ? View.VISIBLE : View.GONE);
