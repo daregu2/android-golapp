@@ -1,6 +1,7 @@
 package com.example.golapp.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Event implements Serializable {
     private Integer id;
@@ -10,6 +11,7 @@ public class Event implements Serializable {
     private String status;
     private String start_at;
     private String end_at;
+    private ArrayList<Person> people;
 
     public String getName() {
         return name;
@@ -37,5 +39,9 @@ public class Event implements Serializable {
 
     public String getStatus() {
         return status;
+    }
+
+    public ArrayList<Person> getPeople() {
+        return people;
     }
 }
