@@ -60,13 +60,19 @@ public class TutorMainFragment extends Fragment {
         binding = FragmentTutorMainBinding.inflate(inflater, container, false);
 //        binding.cv.setOnClickListener(view -> startActivity(new Intent(requireContext(), TutorIndexActivity.class)));
         binding.cvGestionarGol.setOnClickListener(view -> {
-            Intent intent = new Intent(requireContext(),GolEditActivity.class);
-            intent.putExtra("gol",user.getPerson().getCycle().getGol());
+            Intent intent = new Intent(requireContext(), GolEditActivity.class);
+            intent.putExtra("gol", user.getPerson().getCycle().getGol());
             startActivity(intent);
         });
         binding.cvGestionarAlumnos.setOnClickListener(view -> startActivity(new Intent(requireContext(), StudentIndexActivity.class)));
         binding.cvGestionarEventos.setOnClickListener(view -> startActivity(new Intent(requireContext(), EventIndexActivity.class)));
-        binding.cvRegistrarAsistencia.setOnClickListener(view -> startActivity(new Intent(requireContext(), EventPersonActivity.class)));
+        binding.cvRegistrarAsistencia.setOnClickListener(view -> {
+            if (user.getEvent() == null) {
+                Toasty.error(requireContext(), "No hay evento o el evento ha finalizado :(").show();
+            } else {
+                startActivity(new Intent(requireContext(), EventPersonActivity.class));
+            }
+        });
 
         return binding.getRoot();
     }

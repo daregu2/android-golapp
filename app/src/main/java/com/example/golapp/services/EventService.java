@@ -30,4 +30,7 @@ public interface EventService {
     @DELETE("/api/events/{id}")
     Call<BaseResponse<String>> delete(@Path("id") int id);
 
+    @POST("/api/events/end-current-event")
+    Call<BaseResponse<String>> end();
+
 }
