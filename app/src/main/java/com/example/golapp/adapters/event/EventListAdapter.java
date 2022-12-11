@@ -67,7 +67,9 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         }
 
         public void bindView(Event event) {
-            binding.txtDate.setText(event.getName());
+            binding.txtTema.setText(event.getName());
+            binding.txtDate.setText(event.getProgrammed_at());
+            binding.txtStatus.setText(event.getStatus());
             binding.btnEdit.setOnClickListener(view -> {
                 Intent intent = new Intent(view.getContext(), EventEditActivity.class);
                 intent.putExtra("event", event);

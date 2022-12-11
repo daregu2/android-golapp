@@ -38,7 +38,16 @@ public class Event implements Serializable {
     }
 
     public String getStatus() {
-        return status;
+        String estado = "";
+        switch (this.status){
+            case "P":
+                estado = "Programado";
+                break;
+            case "F":
+                estado = "Finalizado";
+
+        }
+        return estado;
     }
 
     public ArrayList<Person> getPeople() {
