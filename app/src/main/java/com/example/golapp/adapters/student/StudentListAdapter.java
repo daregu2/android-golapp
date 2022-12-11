@@ -88,50 +88,47 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
                 view.getContext().startActivity(new Intent(intent));
             });
 
-            binding.btnDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    dialog = new LottieAlertDialog.Builder(view.getContext(), DialogTypes.TYPE_WARNING)
-                            .setTitle("¿Está seguro de eliminar este registro?")
-                            .setDescription("No podra deshacer los cambios luego...")
-                            .setPositiveText("Confirmar")
-                            .setPositiveListener(lottieAlertDialog -> {
-                                dialog.changeDialog(new LottieAlertDialog.Builder(view.getContext(), DialogTypes.TYPE_LOADING)
-                                        .setTitle("En proceso")
-                                );
-                                studentService.delete(tutor.getId()).enqueue(new Callback<BaseResponse<String>>() {
-                                    @Override
-                                    public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
-                                        if (response.isSuccessful() && response.body() != null) {
-                                            Toasty.success(view.getContext(), response.body().getMessage()).show();
-                                            deleteItem(getAdapterPosition());
+            binding.btnDelete.setOnClickListener(view -> {
+                dialog = new LottieAlertDialog.Builder(view.getContext(), DialogTypes.TYPE_WARNING)
+                        .setTitle("¿Está seguro de eliminar este registro?")
+                        .setDescription("No podra deshacer los cambios luego...")
+                        .setPositiveText("Confirmar")
+                        .setPositiveListener(lottieAlertDialog -> {
+                            dialog.changeDialog(new LottieAlertDialog.Builder(view.getContext(), DialogTypes.TYPE_LOADING)
+                                    .setTitle("En proceso")
+                            );
+                            studentService.delete(tutor.getId()).enqueue(new Callback<BaseResponse<String>>() {
+                                @Override
+                                public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                                    if (response.isSuccessful() && response.body() != null) {
+                                        Toasty.success(view.getContext(), response.body().getMessage()).show();
+                                        deleteItem(getAdapterPosition());
 
-                                        } else {
-                                            Converter<ResponseBody, BaseResponse<String>> converter = RetrofitInstance.getRetrofitInstance().responseBodyConverter(BaseResponse.class, new Annotation[0]);
-                                            try {
-                                                BaseResponse<String> error = converter.convert(Objects.requireNonNull(response.errorBody()));
-                                                assert error != null;
-                                                Toasty.error(view.getContext(), error.getMessage()).show();
-                                            } catch (IOException e) {
-                                                e.printStackTrace();
-                                            }
+                                    } else {
+                                        Converter<ResponseBody, BaseResponse<String>> converter = RetrofitInstance.getRetrofitInstance().responseBodyConverter(BaseResponse.class, new Annotation[0]);
+                                        try {
+                                            BaseResponse<String> error = converter.convert(Objects.requireNonNull(response.errorBody()));
+                                            assert error != null;
+                                            Toasty.error(view.getContext(), error.getMessage()).show();
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
                                         }
-                                        dialog.dismiss();
                                     }
+                                    dialog.dismiss();
+                                }
 
 
-                                    @Override
-                                    public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
-                                        dialog.dismiss();
-                                    }
-                                });
+                                @Override
+                                public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+                                    dialog.dismiss();
+                                }
+                            });
 
 
-                            })
-                            .build();
-                    dialog.setCancelable(true);
-                    dialog.show();
-                }
+                        })
+                        .build();
+                dialog.setCancelable(true);
+                dialog.show();
             });
         }
     }

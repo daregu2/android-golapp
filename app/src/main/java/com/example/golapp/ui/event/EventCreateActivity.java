@@ -83,6 +83,8 @@ public class EventCreateActivity extends AppCompatActivity {
 
         binding.imgBanner.setOnClickListener(view -> ImagePicker.Companion.with(this)
                 .crop()
+                .compress(1024)            //Final image size will be less than 1 MB(Optional)
+                .maxResultSize(1080, 1080)
                 .galleryOnly()
                 .start(10));
 

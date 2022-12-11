@@ -48,6 +48,8 @@ public class GolCreateActivity extends AppCompatActivity {
         binding.btnCancelar.setOnClickListener(view -> finish());
         binding.imgGol.setOnClickListener(view -> ImagePicker.Companion.with(this)
                 .crop()
+                .compress(1024)            //Final image size will be less than 1 MB(Optional)
+                .maxResultSize(1080, 1080)
                 .start(10));
 
         binding.btnGuardar.setOnClickListener(view -> {
