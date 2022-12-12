@@ -15,6 +15,7 @@ import com.example.golapp.databinding.ActivityGolEditBinding;
 import com.example.golapp.models.Gol;
 import com.example.golapp.responses.BaseResponse;
 import com.example.golapp.services.GolService;
+import com.example.golapp.ui.auth.AuthActivity;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.labters.lottiealertdialoglibrary.DialogTypes;
 import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
@@ -84,7 +85,8 @@ public class GolEditActivity extends AppCompatActivity {
                     dialog.dismiss();
                     if (response.isSuccessful() && response.body() != null) {
                         Toasty.success(GolEditActivity.this, response.body().getMessage()).show();
-                        finish();
+                        startActivity(new Intent(GolEditActivity.this, AuthActivity.class));
+                        finishAffinity();
                     } else {
                         Converter<ResponseBody, BaseResponse<String>> converter = RetrofitInstance.getRetrofitInstance().responseBodyConverter(BaseResponse.class, new Annotation[0]);
                         try {

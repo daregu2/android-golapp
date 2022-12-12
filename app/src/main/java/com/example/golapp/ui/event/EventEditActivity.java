@@ -20,6 +20,7 @@ import com.example.golapp.models.Gol;
 import com.example.golapp.responses.BaseResponse;
 import com.example.golapp.services.EventService;
 import com.example.golapp.services.GolService;
+import com.example.golapp.ui.auth.AuthActivity;
 import com.example.golapp.ui.gol.GolEditActivity;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.labters.lottiealertdialoglibrary.DialogTypes;
@@ -122,7 +123,8 @@ public class EventEditActivity extends AppCompatActivity {
                     dialog.dismiss();
                     if (response.isSuccessful() && response.body() != null) {
                         Toasty.success(EventEditActivity.this, response.body().getMessage()).show();
-                        finish();
+                        startActivity(new Intent(EventEditActivity.this, AuthActivity.class));
+                        finishAffinity();
                     } else {
                         Converter<ResponseBody, BaseResponse<String>> converter = RetrofitInstance.getRetrofitInstance().responseBodyConverter(BaseResponse.class, new Annotation[0]);
                         try {

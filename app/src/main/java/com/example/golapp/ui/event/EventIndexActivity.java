@@ -15,6 +15,7 @@ import com.example.golapp.models.Event;
 import com.example.golapp.responses.BaseResponse;
 import com.example.golapp.responses.CollectionResponse;
 import com.example.golapp.services.EventService;
+import com.example.golapp.ui.auth.AuthActivity;
 import com.example.golapp.ui.topic.TopicIndexActivity;
 import com.labters.lottiealertdialoglibrary.DialogTypes;
 import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
@@ -116,7 +117,8 @@ public class EventIndexActivity extends AppCompatActivity implements OnDeleteCli
                         public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
                             if (response.isSuccessful() && response.body() !=null) {
                                 Toasty.success(EventIndexActivity.this, response.body().getMessage()).show();
-                                initEventsList();
+                                startActivity(new Intent(EventIndexActivity.this, AuthActivity.class));
+                                finishAffinity();
 
                             } else {
                                 Converter<ResponseBody, BaseResponse<String>> converter = RetrofitInstance.getRetrofitInstance().responseBodyConverter(BaseResponse.class, new Annotation[0]);
