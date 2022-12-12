@@ -26,6 +26,7 @@ import com.example.golapp.models.UserDetail;
 import com.example.golapp.responses.BaseResponse;
 import com.example.golapp.services.AuthService;
 import com.example.golapp.ui.auth.AuthActivity;
+import com.example.golapp.ui.main.LiderMainFragment;
 import com.example.golapp.ui.main.TutorMainFragment;
 import com.example.golapp.ui.topic.TopicIndexActivity;
 import com.example.golapp.utils.TokenManager;
@@ -84,9 +85,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         eventService.end().enqueue(new Callback<BaseResponse<String>>() {
                             @Override
                             public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
-                                if (response.isSuccessful() && response.body() !=null) {
+                                if (response.isSuccessful() && response.body() != null) {
                                     Toasty.success(MainActivity.this, response.body().getMessage()).show();
-                                    startActivity(new Intent(MainActivity.this,AuthActivity.class));
+                                    startActivity(new Intent(MainActivity.this, AuthActivity.class));
                                     finish();
                                 } else {
                                     Converter<ResponseBody, BaseResponse<String>> converter = RetrofitInstance.getRetrofitInstance().responseBodyConverter(BaseResponse.class, new Annotation[0]);
@@ -145,6 +146,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ft.replace(R.id.frameContainer, tutorMainFragment);
             ft.commit();
         }
+        if (userDetail.getRoles().contains("Lider de Grupo")) {
+            LiderMainFragment tutorMainFragment = new LiderMainFragment();
+            tutorMainFragment.setArguments(bundle);
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.frameContainer, tutorMainFragment);
+            ft.commit();
+        }
 
         if (userDetail.getEvent() != null) {
             binding.eventCard.setVisibility(View.VISIBLE);
@@ -157,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             binding.emptyEvent.setVisibility(View.VISIBLE);
         }
     }
