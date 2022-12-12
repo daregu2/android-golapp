@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.golapp.adapters.topic.OnDeleteClick;
 import com.example.golapp.api.RetrofitInstance;
 import com.example.golapp.databinding.StudentItemListBinding;
 import com.example.golapp.models.Student;
@@ -34,10 +35,12 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
 
     private List<Student> studentList;
     LottieAlertDialog dialog;
+    OnDeleteClick onDeleteClick;
     StudentService studentService = RetrofitInstance.getRetrofitInstance().create(StudentService.class);
 
-    public StudentListAdapter(List<Student> studentList) {
+    public StudentListAdapter(List<Student> studentList, OnDeleteClick onDeleteClick) {
         this.studentList = studentList;
+        this.onDeleteClick =onDeleteClick;
     }
 
     @NonNull
@@ -51,6 +54,17 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
     @Override
     public void onBindViewHolder(@NonNull StudentListAdapter.ViewHolder holder, int position) {
         holder.bindView(studentList.get(position));
+    }
+
+    public boolean listHasLider() {
+        for (Student student : this.studentList) {
+            if (student.getUser() != null) {
+                if (student.getUser().isIs_lider()) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     @Override
@@ -78,15 +92,32 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
             this.binding = binding;
         }
 
-        public void bindView(Student tutor) {
-            binding.txtStudentNames.setText(tutor.getNames());
-            binding.txtStudentSchool.setText(tutor.getCycle().getSchool().getName());
-            binding.txtStudentCycle.setText(tutor.getCycle().getName());
+        public void bindView(Student student) {
+            binding.txtStudentNames.setText(student.getNames());
+            binding.txtStudentSchool.setText(student.getCycle().getSchool().getName());
+            binding.txtStudentCycle.setText(student.getCycle().getName());
+
             binding.btnEdit.setOnClickListener(view -> {
                 Intent intent = new Intent(view.getContext(), StudentEditActivity.class);
-                intent.putExtra("person", tutor);
+                intent.putExtra("person", student);
                 view.getContext().startActivity(new Intent(intent));
             });
+
+            if (student.getUser() != null) {
+                if (student.getUser().isIs_lider()) {
+                    binding.layoutLider.setVisibility(View.VISIBLE);
+                }
+            }
+
+            binding.cardStudent.setOnLongClickListener(view -> {
+                if (!listHasLider()) {
+                    onDeleteClick.onDeleteTopicClick(student.getId());
+                } else {
+                    Toasty.info(view.getContext(), "Ya hay un lider asignado para esta semana :)").show();
+                }
+                return true;
+            });
+
 
             binding.btnDelete.setOnClickListener(view -> {
                 dialog = new LottieAlertDialog.Builder(view.getContext(), DialogTypes.TYPE_WARNING)
@@ -97,7 +128,7 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
                             dialog.changeDialog(new LottieAlertDialog.Builder(view.getContext(), DialogTypes.TYPE_LOADING)
                                     .setTitle("En proceso")
                             );
-                            studentService.delete(tutor.getId()).enqueue(new Callback<BaseResponse<String>>() {
+                            studentService.delete(student.getId()).enqueue(new Callback<BaseResponse<String>>() {
                                 @Override
                                 public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
                                     if (response.isSuccessful() && response.body() != null) {

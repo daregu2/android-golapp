@@ -11,6 +11,11 @@ public class Person implements Serializable {
     private Integer phone;
     private Cycle cycle;
     private Pivot pivot;
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
 
     public Integer getId() {
         return id;

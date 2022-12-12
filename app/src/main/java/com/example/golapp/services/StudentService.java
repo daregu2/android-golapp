@@ -27,4 +27,7 @@ public interface StudentService {
     @DELETE("/api/students/{id}")
     Call<BaseResponse<String>> delete(@Path("id") int id);
 
+    @POST("/api/students/{id}/set-lider")
+    Call<BaseResponse<String>> setLider(@Path("id") int id);
+
 }

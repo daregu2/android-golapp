@@ -8,12 +8,16 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.golapp.adapters.student.StudentListAdapter;
+import com.example.golapp.adapters.topic.OnDeleteClick;
 import com.example.golapp.api.RetrofitInstance;
 import com.example.golapp.databinding.ActivityStudentIndexBinding;
 import com.example.golapp.models.Student;
 import com.example.golapp.responses.BaseResponse;
 import com.example.golapp.responses.CollectionResponse;
 import com.example.golapp.services.StudentService;
+import com.example.golapp.ui.topic.TopicIndexActivity;
+import com.labters.lottiealertdialoglibrary.DialogTypes;
+import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -28,7 +32,7 @@ import retrofit2.Callback;
 import retrofit2.Converter;
 import retrofit2.Response;
 
-public class StudentIndexActivity extends AppCompatActivity {
+public class StudentIndexActivity extends AppCompatActivity implements OnDeleteClick {
     ActivityStudentIndexBinding binding;
     StudentService studentService = RetrofitInstance.getRetrofitInstance().create(StudentService.class);
     StudentListAdapter studentListAdapter;
@@ -41,7 +45,7 @@ public class StudentIndexActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.btnAdd.setOnClickListener(view -> startActivity(new Intent(StudentIndexActivity.this, StudentCreateActivity.class)));
-        studentListAdapter = new StudentListAdapter(studentList);
+        studentListAdapter = new StudentListAdapter(studentList, this);
 //        binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(studentListAdapter);
@@ -91,6 +95,38 @@ public class StudentIndexActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<BaseResponse<CollectionResponse<Student>>> call, Throwable t) {
 
+            }
+        });
+    }
+
+    @Override
+    public void onDeleteTopicClick(Integer id) {
+        LottieAlertDialog dialog =  new LottieAlertDialog.Builder(this, DialogTypes.TYPE_LOADING)
+                .setTitle("En proceso").build();
+        dialog.show();
+        studentService.setLider(id).enqueue(new Callback<BaseResponse<String>>() {
+            @Override
+            public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                dialog.dismiss();
+                if (response.isSuccessful() && response.body() != null) {
+                    Toasty.success(StudentIndexActivity.this, response.body().getMessage()).show();
+                    //TODO: XDXD
+                    initStudentsList();
+                } else {
+                    Converter<ResponseBody, BaseResponse<String>> converter = RetrofitInstance.getRetrofitInstance().responseBodyConverter(BaseResponse.class, new Annotation[0]);
+                    try {
+                        BaseResponse<String> error = converter.convert(Objects.requireNonNull(response.errorBody()));
+                        assert error != null;
+                        Toasty.error(StudentIndexActivity.this, error.getMessage()).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
+                dialog.dismiss();
             }
         });
     }
