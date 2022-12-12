@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                 if (response.isSuccessful() && response.body() !=null) {
                                     Toasty.success(MainActivity.this, response.body().getMessage()).show();
                                     startActivity(new Intent(MainActivity.this,AuthActivity.class));
-
+                                    finish();
                                 } else {
                                     Converter<ResponseBody, BaseResponse<String>> converter = RetrofitInstance.getRetrofitInstance().responseBodyConverter(BaseResponse.class, new Annotation[0]);
                                     try {

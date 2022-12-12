@@ -3,12 +3,14 @@ package com.example.golapp.adapters.eventperson;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.golapp.adapters.topic.OnDeleteClick;
+import com.example.golapp.R;
+import com.example.golapp.adapters.eventperson.OnEventPersonClick;
 import com.example.golapp.databinding.EventpersonItemListBinding;
 import com.example.golapp.models.Event;
 import com.example.golapp.models.Person;
@@ -21,10 +23,10 @@ import java.util.List;
 public class EventPersonListAdapter extends RecyclerView.Adapter<EventPersonListAdapter.ViewHolder> {
 
     private List<Person> itemList;
-    OnDeleteClick onDeleteClick;
+    OnEventPersonClick onDeleteClick;
     LottieAlertDialog dialog;
 
-    public EventPersonListAdapter(List<Person> itemList, OnDeleteClick onDeleteClick) {
+    public EventPersonListAdapter(List<Person> itemList, OnEventPersonClick onDeleteClick) {
         this.itemList = itemList;
         this.onDeleteClick = onDeleteClick;
     }
@@ -69,6 +71,13 @@ public class EventPersonListAdapter extends RecyclerView.Adapter<EventPersonList
 
         public void bindView(Person person) {
             binding.txtName.setText(String.format("%s %s", person.getNames(), person.getLastNames()));
+            binding.imgPresent.setOnClickListener(view -> onDeleteClick.onPresentClick(person.getId(),!person.getPivot().getPresent()));
+
+            if (person.getPivot().getPresent()){
+                binding.imgPresent.setImageResource(R.drawable.ic_check);
+            }else{
+                binding.imgPresent.setImageResource(R.drawable.ic_clear);
+            }
         }
     }
 }
