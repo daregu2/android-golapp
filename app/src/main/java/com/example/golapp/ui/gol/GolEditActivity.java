@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.golapp.R;
@@ -54,7 +55,10 @@ public class GolEditActivity extends AppCompatActivity {
                 .compress(1024)            //Final image size will be less than 1 MB(Optional)
                 .maxResultSize(1080, 1080)
                 .start(10));
-        binding.btnCancelar.setOnClickListener(view -> finish());
+        binding.btnCancelar.setOnClickListener(view -> {
+            finish();
+            Animatoo.animateFade(this);
+        });
         initGolFromActivity();
 
         binding.btnGuardar.setOnClickListener(view -> {
@@ -144,5 +148,11 @@ public class GolEditActivity extends AppCompatActivity {
         validationHelper.addRequiredValidation(binding.txtLayoutLema, "Este campo es requerido.");
         validationHelper.addRequiredValidation(binding.txtLayoutVersiculo, "Este campo es requerido.");
         return validationHelper.validateAll();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Animatoo.animateFade(this);
     }
 }

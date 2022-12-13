@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.golapp.R;
 import com.example.golapp.adapters.cycle.CycleListAdapter;
+import com.example.golapp.adapters.topic.OnDeleteClick;
 import com.example.golapp.databinding.SchoolItemListBinding;
 import com.example.golapp.models.Cycle;
 import com.example.golapp.models.School;
@@ -25,10 +26,12 @@ public class SchoolListAdapter extends RecyclerView.Adapter<SchoolListAdapter.Vi
 
     private List<School> list;
     private List<Cycle> cycleList;
+    OnDeleteClick onDeleteClick;
 
-    public SchoolListAdapter(List<School> list) {
+    public SchoolListAdapter(List<School> list, OnDeleteClick onDeleteClick) {
         this.list = list;
         this.cycleList = new ArrayList<>();
+        this.onDeleteClick = onDeleteClick;
     }
 
     @NonNull
@@ -66,14 +69,14 @@ public class SchoolListAdapter extends RecyclerView.Adapter<SchoolListAdapter.Vi
             binding.txtSchoolName.setText(school.getName());
             binding.expandableLayout.setVisibility(school.isExpandable() ? View.VISIBLE : View.GONE);
 
-            if (school.isExpandable()){
+            if (school.isExpandable()) {
                 binding.imgArrow.setImageResource(R.drawable.ic_arrow_up);
-            }else{
+            } else {
                 binding.imgArrow.setImageResource(R.drawable.ic_arrow_down);
             }
 
             // EMPIEZA LA MAGIA
-            CycleListAdapter cycleListAdapter = new CycleListAdapter(cycleList);
+            CycleListAdapter cycleListAdapter = new CycleListAdapter(cycleList, onDeleteClick);
             binding.cyclesRecyclerView.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
 //            binding.cyclesRecyclerView.setHasFixedSize(true);
             binding.cyclesRecyclerView.setAdapter(cycleListAdapter);

@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
+import com.example.golapp.adapters.topic.OnDeleteClick;
 import com.example.golapp.api.RetrofitInstance;
 import com.example.golapp.databinding.CycleItemListBinding;
 import com.example.golapp.models.Cycle;
@@ -35,9 +37,11 @@ public class CycleListAdapter extends RecyclerView.Adapter<CycleListAdapter.View
     private List<Cycle> list;
     GolService golService = RetrofitInstance.getRetrofitInstance().create(GolService.class);
     LottieAlertDialog dialog;
+    OnDeleteClick onDeleteClick;
 
-    public CycleListAdapter(List<Cycle> list) {
+    public CycleListAdapter(List<Cycle> list, OnDeleteClick onDeleteClick) {
         this.list = list;
+        this.onDeleteClick = onDeleteClick;
     }
 
     @NonNull
@@ -81,55 +85,16 @@ public class CycleListAdapter extends RecyclerView.Adapter<CycleListAdapter.View
                 Intent intent = new Intent(view.getContext(), GolCreateActivity.class);
                 intent.putExtra("cycleId", cycle.getId());
                 view.getContext().startActivity(new Intent(intent));
+                Animatoo.animateZoom(view.getContext());
             });
             binding.btnDelete.setOnClickListener(view -> {
-                dialog = new LottieAlertDialog.Builder(view.getContext(), DialogTypes.TYPE_WARNING)
-                        .setTitle("¿Está seguro de eliminar este registro?")
-                        .setDescription("No podra deshacer los cambios luego...")
-                        .setPositiveText("Confirmar")
-                        .setPositiveListener(lottieAlertDialog -> {
-                            dialog.changeDialog(new LottieAlertDialog.Builder(view.getContext(), DialogTypes.TYPE_LOADING)
-                                    .setTitle("En proceso")
-                            );
-                            golService.delete(cycle.getGol().getId()).enqueue(new Callback<BaseResponse<String>>() {
-                                @Override
-                                public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
-                                    if (response.isSuccessful() && response.body() != null) {
-                                        Toasty.success(view.getContext(), response.body().getMessage()).show();
-                                        binding.btnAdd.setVisibility(View.VISIBLE);
-                                        binding.btnEdit.setVisibility(View.GONE);
-                                        binding.btnDelete.setVisibility(View.GONE);
-                                        binding.golLayout.setVisibility(View.GONE);
-                                    } else {
-                                        Converter<ResponseBody, BaseResponse<String>> converter = RetrofitInstance.getRetrofitInstance().responseBodyConverter(BaseResponse.class, new Annotation[0]);
-                                        try {
-                                            BaseResponse<String> error = converter.convert(Objects.requireNonNull(response.errorBody()));
-                                            assert error != null;
-                                            Toasty.error(view.getContext(), error.getMessage()).show();
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                    dialog.dismiss();
-                                }
-
-
-                                @Override
-                                public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
-                                    dialog.dismiss();
-                                }
-                            });
-
-
-                        })
-                        .build();
-                dialog.setCancelable(true);
-                dialog.show();
+                onDeleteClick.onDeleteTopicClick(cycle.getGol().getId());
             });
             binding.btnEdit.setOnClickListener(view -> {
                 Intent intent = new Intent(view.getContext(), GolEditActivity.class);
                 intent.putExtra("gol", cycle.getGol());
                 view.getContext().startActivity(new Intent(intent));
+                Animatoo.animateZoom(view.getContext());
             });
             if (cycle.getGol() == null) {
                 binding.btnAdd.setVisibility(View.VISIBLE);

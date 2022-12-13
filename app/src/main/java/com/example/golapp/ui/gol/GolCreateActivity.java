@@ -7,11 +7,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.golapp.api.RetrofitInstance;
 import com.example.golapp.databinding.ActivityGolCreateBinding;
 import com.example.golapp.responses.BaseResponse;
 import com.example.golapp.services.GolService;
 import com.github.dhaval2404.imagepicker.ImagePicker;
+import com.labters.lottiealertdialoglibrary.DialogTypes;
+import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
 import com.master.validationhelper.ValidationHelper;
 
 import java.io.File;
@@ -45,7 +48,10 @@ public class GolCreateActivity extends AppCompatActivity {
         cycleId = (Integer) i.getSerializableExtra("cycleId");
 
         validationHelper = new ValidationHelper(null, GolCreateActivity.this, true);
-        binding.btnCancelar.setOnClickListener(view -> finish());
+        binding.btnCancelar.setOnClickListener(view -> {
+            finish();
+            Animatoo.animateFade(this);
+        });
         binding.imgGol.setOnClickListener(view -> ImagePicker.Companion.with(this)
                 .crop()
                 .compress(1024)            //Final image size will be less than 1 MB(Optional)
@@ -69,12 +75,20 @@ public class GolCreateActivity extends AppCompatActivity {
                 builder.addFormDataPart("photo", file.getName(), RequestBody.create(MultipartBody.FORM, file));
             }
             RequestBody requestBody = builder.build();
+            LottieAlertDialog dialog = new LottieAlertDialog.Builder(GolCreateActivity.this, DialogTypes.TYPE_LOADING)
+                    .setTitle("En proceso")
+                    .build();
+            dialog.setCancelable(false);
+            dialog.show();
+
             golService.store(requestBody).enqueue(new Callback<BaseResponse<String>>() {
                 @Override
                 public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
+                    dialog.dismiss();
                     if (response.isSuccessful() && response.body() != null) {
                         Toasty.success(GolCreateActivity.this, response.body().getMessage()).show();
                         finish();
+                        Animatoo.animateWindmill(GolCreateActivity.this);
                     } else {
                         Converter<ResponseBody, BaseResponse<String>> converter = RetrofitInstance.getRetrofitInstance().responseBodyConverter(BaseResponse.class, new Annotation[0]);
                         try {
@@ -89,7 +103,7 @@ public class GolCreateActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<BaseResponse<String>> call, Throwable t) {
-
+                    dialog.dismiss();
                 }
             });
         });
@@ -110,5 +124,11 @@ public class GolCreateActivity extends AppCompatActivity {
         validationHelper.addRequiredValidation(binding.txtLayoutLema, "Este campo es requerido.");
         validationHelper.addRequiredValidation(binding.txtLayoutVersiculo, "Este campo es requerido.");
         return validationHelper.validateAll();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Animatoo.animateFade(this);
     }
 }
