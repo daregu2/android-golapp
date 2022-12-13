@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.golapp.R;
 import com.example.golapp.api.RetrofitInstance;
 import com.example.golapp.databinding.FragmentLoadingBinding;
@@ -84,6 +85,7 @@ public class LoadingFragment extends Fragment {
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     intent.putExtra("user", response.body().getResult());
                     startActivity(intent);
+                    Animatoo.animateFade(requireContext());
                     requireActivity().finish();
 
                 } else {

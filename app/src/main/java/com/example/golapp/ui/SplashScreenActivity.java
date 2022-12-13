@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.golapp.ui.auth.AuthActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {

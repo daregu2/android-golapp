@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.developer.kalert.KAlertDialog;
 import com.example.golapp.api.RetrofitInstance;
 import com.example.golapp.databinding.FragmentLoginBinding;
@@ -127,6 +128,7 @@ public class LoginFragment extends Fragment {
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     intent.putExtra("user", response.body().getResult());
                     startActivity(intent);
+                    Animatoo.animateSlideUp(requireContext());
                     requireActivity().finish();
 
                 } else {

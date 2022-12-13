@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.developer.kalert.KAlertDialog;
@@ -183,6 +184,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 dialog.hide();
                 Intent intent = new Intent(MainActivity.this, AuthActivity.class);
                 startActivity(intent);
+                Animatoo.animateWindmill(MainActivity.this);
                 finish();
             }
 
@@ -191,6 +193,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 tokenManager.deleteToken();
                 Intent intent = new Intent(MainActivity.this, AuthActivity.class);
                 startActivity(intent);
+                Animatoo.animateWindmill(MainActivity.this);
                 finish();
             }
         });
