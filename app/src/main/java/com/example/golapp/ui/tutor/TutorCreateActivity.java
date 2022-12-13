@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.RadioButton;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.golapp.R;
 import com.example.golapp.api.RetrofitInstance;
 import com.example.golapp.databinding.ActivityTutorCreateBinding;
@@ -16,6 +18,8 @@ import com.example.golapp.responses.BaseResponse;
 import com.example.golapp.responses.CollectionResponse;
 import com.example.golapp.services.SchoolService;
 import com.example.golapp.services.TutorService;
+import com.example.golapp.ui.gol.GolCreateActivity;
+import com.master.validationhelper.CustomLogicValidation;
 import com.master.validationhelper.ValidationHelper;
 
 import java.io.IOException;
@@ -50,7 +54,10 @@ public class TutorCreateActivity extends AppCompatActivity {
         setupGradeSpinner();
 
         validationHelper = new ValidationHelper(null, TutorCreateActivity.this, true);
-        binding.btnCancelar.setOnClickListener(view -> finish());
+        binding.btnCancelar.setOnClickListener(view -> {
+            finish();
+            Animatoo.animateFade(this);
+        });
 
         binding.btnGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,12 +73,18 @@ public class TutorCreateActivity extends AppCompatActivity {
                 request.setPhone(Integer.parseInt(String.valueOf(binding.txtLayouTelefono.getEditText().getText())));
                 request.setSchool_id(mapSchools.get(binding.spinSchool.getText().toString()));
                 request.setCycle(binding.spinCycle.getText().toString());
+                if (binding.rbSexoMasculino.isChecked()) {
+                    request.setGender(String.valueOf(binding.rbSexoMasculino.getText()));
+                } else {
+                    request.setGender(String.valueOf(binding.rbSexoFemenino.getText()));
+                }
                 tutorService.store(request).enqueue(new Callback<BaseResponse<String>>() {
                     @Override
                     public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
-                        if (response.isSuccessful()) {
-                            Toasty.success(TutorCreateActivity.this, "Tutor guardado correctamente!").show();
+                        if (response.isSuccessful() && response.body() != null) {
+                            Toasty.success(TutorCreateActivity.this, response.body().getMessage()).show();
                             finish();
+                            Animatoo.animateWindmill(TutorCreateActivity.this);
                         } else {
                             Converter<ResponseBody, BaseResponse<String>> converter = RetrofitInstance.getRetrofitInstance().responseBodyConverter(BaseResponse.class, new Annotation[0]);
                             try {
@@ -82,7 +95,6 @@ public class TutorCreateActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
-
                     }
 
                     @Override
@@ -108,12 +120,11 @@ public class TutorCreateActivity extends AppCompatActivity {
                     adapterSchool = new ArrayAdapter<>(TutorCreateActivity.this, R.layout.spinner_item, arraySchool);
                     binding.spinSchool.setAdapter(adapterSchool);
                 }
-
             }
 
             @Override
             public void onFailure(Call<BaseResponse<CollectionResponse<School>>> call, Throwable t) {
-
+                System.err.println(t.getMessage());
             }
         });
 
@@ -141,12 +152,25 @@ public class TutorCreateActivity extends AppCompatActivity {
         validationHelper.addRequiredValidation(binding.txtLayoutNombres, "Este campo es requerido.");
         validationHelper.addRequiredValidation(binding.txtLayoutApellidos, "Este campo es requerido.");
         validationHelper.addRequiredValidation(binding.txtLayoutCodigo, "Este campo es requerido.");
-        validationHelper.addRequiredValidation(binding.txtLayoutEmail, "Este campo es requerido.");
+        validationHelper.addEmailValidation(binding.txtLayoutEmail, "Este campo es requerido.", "El campo debe ser un email válido", true);
         validationHelper.addRequiredValidation(binding.txtLayouTelefono, "Este campo es requerido.");
         validationHelper.addRequiredValidation(binding.txtSpinSchool, "Este campo es requerido.");
         validationHelper.addRequiredValidation(binding.txtSpinCycle, "Este campo es requerido.");
+        validationHelper.addCustomLogicValidation(() -> {
+            if (binding.rbSexoFemenino.isChecked() || binding.rbSexoMasculino.isChecked()) {
+                return true;
+            } else {
+                Toasty.error(TutorCreateActivity.this, "Debe seleccionar un Sexo.").show();
+                return false;
+            }
+        });
         return validationHelper.validateAll();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Animatoo.animateFade(this);
+    }
 
 }

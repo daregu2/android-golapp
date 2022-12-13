@@ -46,11 +46,11 @@ public class AdminMainFragment extends Fragment {
         });
         binding.cvGestionarGrupos.setOnClickListener(view -> {
             startActivity(new Intent(requireContext(), GolIndexActivity.class));
-            Animatoo.animateCard(requireContext());
+            Animatoo.animateShrink(requireContext());
         });
         binding.cvGestionarTemas.setOnClickListener(view -> {
             startActivity(new Intent(requireContext(), TopicIndexActivity.class));
-            Animatoo.animateInAndOut(requireContext());
+            Animatoo.animateShrink(requireContext());
         });
         return binding.getRoot();
     }

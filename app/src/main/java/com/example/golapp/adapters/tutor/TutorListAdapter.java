@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.golapp.api.RetrofitInstance;
 import com.example.golapp.databinding.TutorItemListBinding;
 import com.example.golapp.models.Tutor;
@@ -89,6 +90,7 @@ public class TutorListAdapter extends RecyclerView.Adapter<TutorListAdapter.View
                 Intent intent = new Intent(view.getContext(), TutorEditActivity.class);
                 intent.putExtra("person", tutor);
                 view.getContext().startActivity(new Intent(intent));
+                Animatoo.animateWindmill(view.getContext());
             });
 
             binding.btnDelete.setOnClickListener(new View.OnClickListener() {

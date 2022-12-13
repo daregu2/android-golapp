@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.golapp.R;
 import com.example.golapp.api.RetrofitInstance;
 import com.example.golapp.databinding.ActivityTutorCreateBinding;
@@ -54,7 +55,10 @@ public class TutorEditActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         validationHelper = new ValidationHelper(null, TutorEditActivity.this, true);
-        binding.btnCancelar.setOnClickListener(view -> finish());
+        binding.btnCancelar.setOnClickListener(view -> {
+            finish();
+            Animatoo.animateFade(this);
+        });
         setupSchoolSpinner();
         setupGradeSpinner();
         setupEditablePerson();
@@ -74,11 +78,17 @@ public class TutorEditActivity extends AppCompatActivity {
                 request.setPhone(Integer.parseInt(String.valueOf(binding.txtLayouTelefono.getEditText().getText())));
                 request.setSchool_id(mapSchools.get(binding.spinSchool.getText().toString()));
                 request.setCycle(binding.spinCycle.getText().toString());
-                tutorService.update(tutor.getId(),request).enqueue(new Callback<BaseResponse<String>>() {
+                if (binding.rbSexoMasculino.isChecked()) {
+                    request.setGender(String.valueOf(binding.rbSexoMasculino.getText()));
+                } else {
+                    request.setGender(String.valueOf(binding.rbSexoFemenino.getText()));
+                }
+                tutorService.update(tutor.getId(), request).enqueue(new Callback<BaseResponse<String>>() {
                     @Override
                     public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
-                        if (response.isSuccessful()) {
-                            Toasty.success(TutorEditActivity.this, "Tutor guardado correctamente!").show();
+                        if (response.isSuccessful() && response.body() != null) {
+                            Toasty.success(TutorEditActivity.this, response.body().getMessage()).show();
+                            Animatoo.animateWindmill(TutorEditActivity.this);
                             finish();
                         } else {
                             Converter<ResponseBody, BaseResponse<String>> converter = RetrofitInstance.getRetrofitInstance().responseBodyConverter(BaseResponse.class, new Annotation[0]);
@@ -148,7 +158,7 @@ public class TutorEditActivity extends AppCompatActivity {
 
     public void setupEditablePerson() {
         Intent i = getIntent();
-        tutor =  (Tutor) i.getSerializableExtra("person");
+        tutor = (Tutor) i.getSerializableExtra("person");
         binding.spinSchool.setText(tutor.getCycle().getSchool().getName(), false);
         binding.spinCycle.setText(tutor.getCycle().getName(), false);
         binding.txtLayoutNombres.getEditText().setText(tutor.getNames());
@@ -156,6 +166,11 @@ public class TutorEditActivity extends AppCompatActivity {
         binding.txtLayoutCodigo.getEditText().setText(String.valueOf(tutor.getCode()));
         binding.txtLayoutEmail.getEditText().setText(tutor.getEmail());
         binding.txtLayouTelefono.getEditText().setText(String.valueOf(tutor.getPhone()));
+        if (tutor.getGender().equals("Masculino")) {
+            binding.rbSexoMasculino.setChecked(true);
+        } else {
+            binding.rbSexoFemenino.setChecked(true);
+        }
 
     }
 
@@ -163,10 +178,24 @@ public class TutorEditActivity extends AppCompatActivity {
         validationHelper.addRequiredValidation(binding.txtLayoutNombres, "Este campo es requerido.");
         validationHelper.addRequiredValidation(binding.txtLayoutApellidos, "Este campo es requerido.");
         validationHelper.addRequiredValidation(binding.txtLayoutCodigo, "Este campo es requerido.");
-        validationHelper.addRequiredValidation(binding.txtLayoutEmail, "Este campo es requerido.");
+        validationHelper.addEmailValidation(binding.txtLayoutEmail, "Este campo es requerido.", "El campo debe ser un email válido", true);
         validationHelper.addRequiredValidation(binding.txtLayouTelefono, "Este campo es requerido.");
         validationHelper.addRequiredValidation(binding.txtSpinSchool, "Este campo es requerido.");
         validationHelper.addRequiredValidation(binding.txtSpinCycle, "Este campo es requerido.");
+        validationHelper.addCustomLogicValidation(() -> {
+            if (binding.rbSexoFemenino.isChecked() || binding.rbSexoMasculino.isChecked()) {
+                return true;
+            } else {
+                Toasty.error(this, "Debe seleccionar un Sexo.").show();
+                return false;
+            }
+        });
         return validationHelper.validateAll();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Animatoo.animateFade(this);
     }
 }

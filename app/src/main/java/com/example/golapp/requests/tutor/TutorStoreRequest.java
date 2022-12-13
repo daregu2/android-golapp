@@ -8,6 +8,15 @@ public class TutorStoreRequest {
     private Integer code;
     private String email;
     private Integer phone;
+    private String gender;
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getGender() {
+        return gender;
+    }
 
     public TutorStoreRequest() {
     }

@@ -12,6 +12,11 @@ public class Person implements Serializable {
     private Cycle cycle;
     private Pivot pivot;
     private User user;
+    private String gender;
+
+    public String getGender() {
+        return gender;
+    }
 
     public User getUser() {
         return user;
