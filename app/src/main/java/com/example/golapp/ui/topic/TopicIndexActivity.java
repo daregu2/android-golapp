@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.os.Bundle;
 import android.view.View;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.golapp.adapters.topic.OnDeleteClick;
 import com.example.golapp.adapters.week.WeekListAdapter;
 import com.example.golapp.api.RetrofitInstance;
@@ -106,6 +107,15 @@ public class TopicIndexActivity extends AppCompatActivity implements OnDeleteCli
                         binding.emptyList.setVisibility(View.GONE);
                         binding.recyclerView.setVisibility(View.VISIBLE);
                     }
+                } else {
+                    Converter<ResponseBody, BaseResponse<String>> converter = RetrofitInstance.getRetrofitInstance().responseBodyConverter(BaseResponse.class, new Annotation[0]);
+                    try {
+                        BaseResponse<String> error = converter.convert(Objects.requireNonNull(response.errorBody()));
+                        assert error != null;
+                        Toasty.error(TopicIndexActivity.this, error.getMessage()).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
@@ -158,5 +168,11 @@ public class TopicIndexActivity extends AppCompatActivity implements OnDeleteCli
                 .build();
         dialog.setCancelable(true);
         dialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Animatoo.animateFade(this);
     }
 }

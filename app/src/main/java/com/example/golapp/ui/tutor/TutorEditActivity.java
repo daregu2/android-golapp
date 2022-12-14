@@ -88,8 +88,8 @@ public class TutorEditActivity extends AppCompatActivity {
                     public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
                         if (response.isSuccessful() && response.body() != null) {
                             Toasty.success(TutorEditActivity.this, response.body().getMessage()).show();
-                            Animatoo.animateWindmill(TutorEditActivity.this);
                             finish();
+                            Animatoo.animateWindmill(TutorEditActivity.this);
                         } else {
                             Converter<ResponseBody, BaseResponse<String>> converter = RetrofitInstance.getRetrofitInstance().responseBodyConverter(BaseResponse.class, new Annotation[0]);
                             try {

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.golapp.api.RetrofitInstance;
 import com.example.golapp.databinding.ActivityTopicEditBinding;
 import com.example.golapp.models.Topic;
@@ -35,7 +36,10 @@ public class TopicEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityTopicEditBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        binding.btnCancelar.setOnClickListener(view -> finish());
+        binding.btnCancelar.setOnClickListener(view -> {
+            finish();
+            Animatoo.animateFade(this);
+        });
         setupEditableTopic();
         validationHelper = new ValidationHelper(null, this, true);
 
@@ -54,6 +58,7 @@ public class TopicEditActivity extends AppCompatActivity {
                     if (response.isSuccessful() && response.body() != null) {
                         Toasty.success(TopicEditActivity.this, response.body().getMessage()).show();
                         finish();
+                        Animatoo.animateWindmill(TopicEditActivity.this);
                     } else {
                         Converter<ResponseBody, BaseResponse<String>> converter = RetrofitInstance.getRetrofitInstance().responseBodyConverter(BaseResponse.class, new Annotation[0]);
                         try {
@@ -87,5 +92,11 @@ public class TopicEditActivity extends AppCompatActivity {
         validationHelper.addRequiredValidation(binding.txtLayoutNombre, "Este campo es requerido.");
         validationHelper.addRequiredValidation(binding.txtLayoutLink, "Este campo es requerido.");
         return validationHelper.validateAll();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Animatoo.animateZoom(this);
     }
 }

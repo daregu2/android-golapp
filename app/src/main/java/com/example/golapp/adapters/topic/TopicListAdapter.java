@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.golapp.adapters.cycle.CycleListAdapter;
 import com.example.golapp.api.RetrofitInstance;
 import com.example.golapp.databinding.CycleItemListBinding;
@@ -81,12 +82,14 @@ public class TopicListAdapter extends RecyclerView.Adapter<TopicListAdapter.View
                 Intent intent = new Intent(view.getContext(), TopicCreateActivity.class);
                 intent.putExtra("topic", topic);
                 view.getContext().startActivity(new Intent(intent));
+                Animatoo.animateWindmill(view.getContext());
             });
 
             binding.btnEdit.setOnClickListener(view -> {
                 Intent intent = new Intent(view.getContext(), TopicEditActivity.class);
                 intent.putExtra("topic", topic);
                 view.getContext().startActivity(new Intent(intent));
+                Animatoo.animateWindmill(view.getContext());
             });
 
             binding.btnDelete.setOnClickListener(view -> onDeleteClick.onDeleteTopicClick(topic.getId()));
