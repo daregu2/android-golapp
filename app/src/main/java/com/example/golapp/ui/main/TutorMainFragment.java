@@ -10,11 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.example.golapp.databinding.FragmentTutorMainBinding;
 import com.example.golapp.models.UserDetail;
 import com.example.golapp.ui.event.EventIndexActivity;
 import com.example.golapp.ui.eventperson.EventPersonActivity;
 import com.example.golapp.ui.gol.GolEditActivity;
+import com.example.golapp.ui.report.StudentReportActivity;
 import com.example.golapp.ui.student.StudentIndexActivity;
 import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
 
@@ -51,6 +53,10 @@ public class TutorMainFragment extends Fragment {
         });
         binding.cvGestionarAlumnos.setOnClickListener(view -> startActivity(new Intent(requireContext(), StudentIndexActivity.class)));
         binding.cvGestionarEventos.setOnClickListener(view -> startActivity(new Intent(requireContext(), EventIndexActivity.class)));
+        binding.cvReportePorAlumno.setOnClickListener(view -> {
+            startActivity(new Intent(requireContext(), StudentReportActivity.class));
+            Animatoo.animateSlideUp(requireContext());
+        });
         binding.cvRegistrarAsistencia.setOnClickListener(view -> {
             if (user.getEvent() == null) {
                 Toasty.error(requireContext(), "No hay evento o el evento ha finalizado :(").show();

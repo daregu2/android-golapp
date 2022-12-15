@@ -18,6 +18,9 @@ public interface StudentService {
     @GET("/api/students")
     Call<BaseResponse<CollectionResponse<Student>>> index();
 
+    @GET("/api/students/{id}")
+    Call<BaseResponse<Student>> show(@Path("id") int id);
+
     @POST("/api/students")
     Call<BaseResponse<String>> store(@Body TutorStoreRequest request);
 

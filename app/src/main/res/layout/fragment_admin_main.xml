@@ -148,6 +148,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:visibility="gone"
             android:id="@+id/cvVerReportes"
             android:layout_width="0dp"
             android:layout_height="match_parent"

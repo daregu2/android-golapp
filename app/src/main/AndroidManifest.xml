@@ -4,7 +4,7 @@
     package="com.example.golapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <application
         android:name="com.example.golapp.BaseApplication"
         android:allowBackup="true"
@@ -17,6 +17,13 @@
         android:theme="@style/Theme.UPeUApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.report.StudentReportActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".ui.ProfileActivity"
             android:exported="false">
