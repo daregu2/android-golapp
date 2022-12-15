@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     KAlertDialog dialog;
     LottieAlertDialog lottieAlertDialog;
     EventService eventService = RetrofitInstance.getRetrofitInstance().create(EventService.class);
+    UserDetail userDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void setInitialDataFromServer() {
         Intent i = getIntent();
-        UserDetail userDetail = (UserDetail) i.getSerializableExtra("user");
+        userDetail = (UserDetail) i.getSerializableExtra("user");
         Bundle bundle = new Bundle();
         bundle.putSerializable("user", userDetail);
         ImageView imageView = (ImageView) binding.navView.getHeaderView(0).findViewById(R.id.headerImg);
@@ -206,7 +207,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 logout();
                 break;
             case R.id.menu_profile:
-                Toasty.info(this, "Ver perfil!").show();
+                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                intent.putExtra("user",userDetail);
+                startActivity(intent);
+                Animatoo.animateWindmill(MainActivity.this);
                 break;
         }
         return true;

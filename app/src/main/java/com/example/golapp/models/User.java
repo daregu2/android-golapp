@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class User implements Serializable {
     private Integer id;
     private String name;
+    private String avatar;
     private boolean is_active;
     private boolean is_lider;
 
@@ -22,5 +23,9 @@ public class User implements Serializable {
 
     public boolean isIs_lider() {
         return is_lider;
+    }
+
+    public String getAvatar() {
+        return avatar;
     }
 }
