@@ -11,7 +11,12 @@ public class Event implements Serializable {
     private String status;
     private String start_at;
     private String end_at;
+    private Topic topic;
     private ArrayList<Person> people;
+
+    public Topic getTopic() {
+        return topic;
+    }
 
     public String getName() {
         return name;

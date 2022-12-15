@@ -5,18 +5,24 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 
+import com.example.golapp.R;
 import com.example.golapp.adapters.event.EventListAdapter;
+import com.example.golapp.adapters.event.OnEventTopicClick;
 import com.example.golapp.adapters.topic.OnDeleteClick;
 import com.example.golapp.api.RetrofitInstance;
 import com.example.golapp.databinding.ActivityEventIndexBinding;
+import com.example.golapp.databinding.LayoutTopicDialogBinding;
 import com.example.golapp.models.Event;
+import com.example.golapp.models.Topic;
 import com.example.golapp.responses.BaseResponse;
 import com.example.golapp.responses.CollectionResponse;
 import com.example.golapp.services.EventService;
 import com.example.golapp.ui.auth.AuthActivity;
 import com.example.golapp.ui.topic.TopicIndexActivity;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.labters.lottiealertdialoglibrary.DialogTypes;
 import com.labters.lottiealertdialoglibrary.LottieAlertDialog;
 
@@ -33,7 +39,7 @@ import retrofit2.Callback;
 import retrofit2.Converter;
 import retrofit2.Response;
 
-public class EventIndexActivity extends AppCompatActivity implements OnDeleteClick {
+public class EventIndexActivity extends AppCompatActivity implements OnDeleteClick, OnEventTopicClick {
     ActivityEventIndexBinding binding;
     EventService eventService = RetrofitInstance.getRetrofitInstance().create(EventService.class);
     EventListAdapter eventListAdapter;
@@ -47,7 +53,7 @@ public class EventIndexActivity extends AppCompatActivity implements OnDeleteCli
         setContentView(binding.getRoot());
 
 //        binding.btnAdd.setOnClickListener(view -> startActivity(new Intent(EventIndexActivity.this, EventCreateActivity.class)));
-        eventListAdapter = new EventListAdapter(eventList,this);
+        eventListAdapter = new EventListAdapter(eventList, this, this);
 //        binding.recyclerView.setHasFixedSize(true);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(eventListAdapter);
@@ -115,7 +121,7 @@ public class EventIndexActivity extends AppCompatActivity implements OnDeleteCli
                     eventService.delete(id).enqueue(new Callback<BaseResponse<String>>() {
                         @Override
                         public void onResponse(Call<BaseResponse<String>> call, Response<BaseResponse<String>> response) {
-                            if (response.isSuccessful() && response.body() !=null) {
+                            if (response.isSuccessful() && response.body() != null) {
                                 Toasty.success(EventIndexActivity.this, response.body().getMessage()).show();
                                 startActivity(new Intent(EventIndexActivity.this, AuthActivity.class));
                                 finishAffinity();
@@ -144,5 +150,15 @@ public class EventIndexActivity extends AppCompatActivity implements OnDeleteCli
                 .build();
         dialog.setCancelable(true);
         dialog.show();
+    }
+
+    @Override
+    public void onShowTopicClick(Topic topic) {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        LayoutTopicDialogBinding bin = LayoutTopicDialogBinding.inflate(getLayoutInflater());
+        bottomSheetDialog.setContentView(bin.getRoot());
+        bin.txtTopicName.setText(topic.getName());
+        bin.txtTopicLink.setText(topic.getResource_link());
+        bottomSheetDialog.show();
     }
 }
