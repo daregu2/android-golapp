@@ -47,7 +47,7 @@
                     android:id="@+id/txtGestionarGrupos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Gestionar Gol"
+                    android:text="Editar Gol"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -64,34 +64,34 @@
             android:layout_weight="1"
             app:cardCornerRadius="8dp">
 
-<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent">-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-<!--                <ImageView-->
-<!--                    android:id="@+id/imageView43"-->
-<!--                    android:layout_width="100dp"-->
-<!--                    android:layout_height="100dp"-->
-<!--                    android:layout_marginStart="15dp"-->
-<!--                    android:layout_marginTop="10dp"-->
-<!--                    android:layout_marginEnd="15dp"-->
-<!--                    android:contentDescription="@string/app_name"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    app:srcCompat="@drawable/students" />-->
+                <ImageView
+                    android:id="@+id/imageView43"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="15dp"
+                    android:contentDescription="@string/app_name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/topics2" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/txtGestionarTutores"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Gestionar Alumnos"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/imageView43" />-->
+                <TextView
+                    android:id="@+id/txtGestionarTutores"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ver Tema"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView43" />
 
-<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
 
@@ -138,7 +138,7 @@
                     android:id="@+id/txtGestionarGrupos2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Gestionar Evento"
+                    android:text="Editar Evento"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

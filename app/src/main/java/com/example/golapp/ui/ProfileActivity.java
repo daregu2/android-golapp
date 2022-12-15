@@ -51,7 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
         binding = ActivityProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         initUserFromActivity();
-        validationHelper = new ValidationHelper(null,this,true);
+        validationHelper = new ValidationHelper(null, this, true);
 
         binding.btnCancelar.setOnClickListener(view -> {
             finish();
@@ -115,6 +115,15 @@ public class ProfileActivity extends AppCompatActivity {
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .placeholder(R.drawable.img_placeholder)
                     .into(binding.imgAvatar);
+        }
+        if (user.getPerson().getCycle().getGol() != null) {
+            Glide.with(this)
+                    .load(user.getPerson().getCycle().getGol().getPhoto())
+                    .fitCenter()
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .placeholder(R.drawable.img_placeholder)
+                    .into(binding.imgGol);
         }
 
     }
